@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './style.css'
 import axios from "axios";
 
@@ -7,6 +8,9 @@ const Register = () => {
     const [username,setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [role,setRole] = useState("");
+
+    const navigate = useNavigate(); // redirect bin routes
+
 
     const setRoleChange =async (e) => {
         e.preventDefault();
@@ -30,7 +34,6 @@ const Register = () => {
         const url = `http://localhost:8080/auth/register?username=${encodeURIComponent(username)}&fullName=${encodeURIComponent(fullName)}&password=${encodeURIComponent(password)}&role=${encodeURIComponent(role)}`;
         console.log("url : "+url)
         try {
-            
             const result =await axios.post(url);
             const data = result.data;
             console.log("register response data: "+data.message)
@@ -39,6 +42,13 @@ const Register = () => {
             setPassword("");
             setRole("");
             setUsername("");
+            if(role==="ROLE_CLIENT") {
+                navigate("/dashboard");
+            }
+            else {
+                navigate("/admin-dashboard");
+            }
+
         }
         catch(err) {
             console.error("error: "+err)
@@ -46,9 +56,9 @@ const Register = () => {
         }
 
     }
-    const handleLoginRedirect = () => {
-        window.location.href = "http://localhost:8080/login";
-    }
+    const handleLoginRedirect = async (e) => {
+        navigate("/login");
+    };
 
     return(
         <>
