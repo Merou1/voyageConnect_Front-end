@@ -50,12 +50,23 @@ const Flights = () => {
 
     const handleFlightDelete = async (id) => {
         try {
-            // Add delete functionality here
+            const confirmation = window.confirm("Are you sure you want to delete this flight?");
+            if (!confirmation) return; 
+    
+            const response = await axios.delete(`http://localhost:8080/api/flights/${id}`, {
+                withCredentials: true,
+            });
+    
+            if (response.status === 200) {
+                setFlights(flights.filter(flight => flight.id !== id));
+                alert("Flight deleted successfully!");
+            }
         } catch (err) {
-            console.error(err);
-            alert("Error while deleting the flight");
+            console.error("Error while deleting the flight:", err);
+            alert("Error while deleting the flight.");
         }
     };
+    
 
     return (
         <div className="FlightsList">

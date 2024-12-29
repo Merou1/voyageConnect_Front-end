@@ -52,6 +52,12 @@ const AddFlight = () => {
       });
       console.log("Flight added successfully:", response.data);
       alert("Flight added successfully!");
+      setAirline("")
+      setDeparture("")
+      setDepartureDate("")
+      setDestination("")
+      setOfferId("")
+      setPrice("")
     } catch (err) {
       console.error("Error adding flight:", err);
       alert("Error adding flight. Please try again.");

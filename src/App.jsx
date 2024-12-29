@@ -29,7 +29,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />}/>
           <Route path="/flights" element={<Flights />}/>
           <Route path="/flights/add" element={<AddFlight />}/>
-          <Route path="/flights/update/:id" element={<UpdateFlight />}/>
+          <Route path="/flights/update/:flightId" element={<UpdateFlight />}/>
           <Route path="/hotels" element={<Hotels />}/>
           <Route path="/offers" element={<Offers />}/>
           <Route path="/destinations" element={<Destinations />}/>

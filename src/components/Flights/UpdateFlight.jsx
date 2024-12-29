@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import "./flight.css";
 
 const UpdateFlight = () => {
-  const [offers, setOffers] = useState([]);
+  const [offer, setOffer] = useState(null);
   const [airline, setAirline] = useState("");
   const [departure, setDeparture] = useState("");
   const [destination, setDestination] = useState("");
@@ -13,13 +13,12 @@ const UpdateFlight = () => {
   const [returnDate, setReturnDate] = useState("");
   const [price, setPrice] = useState("");
   const [offerId, setOfferId] = useState(null);
-  const {flightId} = useParams();
-
+  const { flightId } = useParams();
 
   useEffect(() => {
     const fetchFlightDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/flight/${flightId}`, {
+        const response = await axios.get(`http://localhost:8080/api/flights/${flightId}`, {
           withCredentials: true,
         });
         const flight = response.data;
@@ -29,7 +28,7 @@ const UpdateFlight = () => {
         setDepartureDate(flight.departureDate);
         setReturnDate(flight.returnDate);
         setPrice(flight.price);
-        setOfferId(flight.offer?.id || null);
+        setOfferId(flight.offerId || null);
       } catch (error) {
         console.error("Error fetching flight details:", error);
       }
@@ -37,10 +36,14 @@ const UpdateFlight = () => {
 
     const fetchOffers = async () => {
       try {
-        const result = await axios.get("http://localhost:8080/admin/offers", {
+        const response = await axios.get(`http://localhost:8080/api/flights/${flightId}`, {
           withCredentials: true,
         });
-        setOffers(result.data);
+        const offerID = response.data.offerId;
+        const result = await axios.get(`http://localhost:8080/admin/offer/${offerID}`, {
+          withCredentials: true,
+        });
+        setOffer(result.data); // Assuming result.data is a single offer object
       } catch (error) {
         console.error("Error fetching offers:", error);
       }
@@ -60,7 +63,7 @@ const UpdateFlight = () => {
       departureDate,
       returnDate,
       price: parseFloat(price),
-      offer: { id: offerId },
+      offer: { id: parseInt(offerId, 10) },
     };
 
     try {
@@ -128,11 +131,11 @@ const UpdateFlight = () => {
             <option value="" disabled>
               -- Select an Offer --
             </option>
-            {offers.map((offer) => (
+            {offer && (
               <option key={offer.id} value={offer.id}>
                 {offer.offerDetails} -- Id: {offer.id}
               </option>
-            ))}
+            )}
           </select>
         </div>
         <button type="submit">Update Flight</button>
