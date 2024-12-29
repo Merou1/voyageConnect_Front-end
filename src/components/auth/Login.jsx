@@ -25,7 +25,9 @@ const Login = () => {
             formData.append('username', username);
             formData.append('password', password);
     
-            const result = await axios.post(url, formData);
+            const result = await axios.post(url, formData, {
+                withCredentials: true, // Ensure cookies are included in requests
+            });
             const data = result.data;
             console.log("Login response data:", data);
             console.log("Login response data:", result);

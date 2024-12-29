@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       '/auth/register' : 'http://localhost:8080', 
       '/login' : 'http://localhost:8080', 
+      '/flights' : 'http://localhost:8080/api'
     }
   }
 })

@@ -4,18 +4,24 @@ import './style.css';
 const Dashboard = () => {
     return (
         <div className="dashboard">
-            <div id='flights' className="dashboard-item">
-                <Link to="/flights">Flights</Link>
+            <div  className='welcome'>
+            <p>
+                Welcome <br /> here you can find offers and make or check reservations
+            </p>
             </div>
-            <div id='hotels' className="dashboard-item">
-                <Link to="/hotels">Hotels</Link>
-            </div>
-            <div id='offers' className="dashboard-item">
+
+            <Link to="/offers">
+            <div id='offers' style={{ width: "250px", rowGap: "0px",margin: 0 }} className="dashboard-item">
                 <Link to="/offers">Offers</Link>
             </div>
-            <div id='destinations' className="dashboard-item">
-                <Link to="/destinations">Destinations</Link>
+            </Link>
+            
+            <Link to="/reservations">
+            <div id='reservations' className="dashboard-item">
+            <Link to="/reservations">Reservations</Link>
             </div>
+            </Link>
+            
         </div>
     );
 };

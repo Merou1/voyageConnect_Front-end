@@ -5,6 +5,7 @@ import './style.css'
 const Welcome = () => {
   return(
     <div className="home">
+      <img className='logo' src="src\assets\voyageConnect_logo-removebg-preview.png" alt="app logo" />
       <h1>Welcome to VoyageConnect - Your Travel Agency</h1>
       <p className='explore'>Explore the world with us!</p>
       <Link to="/register">

@@ -12,12 +12,15 @@
     background-position: center;
     min-height: 100vh; 
     width: 260vh; 
+    margin-bottom: 25vh;
+    height: 200vh;
 
 }
 
 .home > * {
     position: relative;
     z-index: 10;
+
 }
 
 
@@ -48,4 +51,11 @@ p {
 .footer p {
     color: white;
     background-color: transparent;
+}
+.logo {
+    top: 0;
+    width: 30vh;
+    height: 30vh;
+    background-color: transparent;
+    margin-right: 200vh;
 }

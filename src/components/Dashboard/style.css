@@ -24,6 +24,11 @@
     justify-content: center;
     align-items: center;
     justify-content: space-evenly;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.dashboard-item:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 #flights {
     background-image: url('../../assets/john-mcarthur-PrdNTrIrG8w-unsplash.jpg');
@@ -49,6 +54,12 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+#reservations {
+    background-image: url('../../assets/estee-janssens-zni0zgb3bkQ-unsplash.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 .dashboard-item a {
     text-decoration: none;
@@ -60,4 +71,15 @@
 
 .dashboard-item a:hover {
     color: #0056b3;
+}
+.welcome {
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgb(159, 197, 228);  
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgb(220, 232, 241);
+    margin-right: 30px;
+}
+.welcome:hover {
+    margin-top: 20px;
 }
