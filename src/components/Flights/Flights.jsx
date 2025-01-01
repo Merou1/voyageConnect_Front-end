@@ -99,8 +99,9 @@ const Flights = () => {
                                         <td>{flight.departureDate}</td>
                                         <td>{flight.destination}</td>
                                         <td>
-                                            ID : {flight.offerId} Description: <br />
-                                            {offerDetails[flight.offerId] || "Loading..."}
+                                            <Link to={`/offers/${flight.offerId}`}>
+                                               <strong>Offer : {flight.offerId}</strong>  <br />
+                                            </Link>
                                         </td>
                                         <td>{flight.price}</td>
                                         <td>{flight.returnDate}</td>

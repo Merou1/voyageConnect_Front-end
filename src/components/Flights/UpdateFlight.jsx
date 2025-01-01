@@ -43,7 +43,7 @@ const UpdateFlight = () => {
         const result = await axios.get(`http://localhost:8080/admin/offer/${offerID}`, {
           withCredentials: true,
         });
-        setOffer(result.data); // Assuming result.data is a single offer object
+        setOffer(result.data);
       } catch (error) {
         console.error("Error fetching offers:", error);
       }

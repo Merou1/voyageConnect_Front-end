@@ -13,7 +13,10 @@ import Reservations from './components/Reservations/Reservations'
 import Login from './components/auth/Login';
 import AddFlight from './components/Flights/AddFlight';
 import UpdateFlight from './components/Flights/UpdateFlight';
-
+import AddHotel from './components/Hotels/AddHotel';
+import UpdateHotel from './components/Hotels/UpdateHotel';
+import OneHotel from './components/Hotels/OneHotel';
+import OneOffer from './components/Offers/OneOffer';
 
 
 function App() {
@@ -31,7 +34,11 @@ function App() {
           <Route path="/flights/add" element={<AddFlight />}/>
           <Route path="/flights/update/:flightId" element={<UpdateFlight />}/>
           <Route path="/hotels" element={<Hotels />}/>
+          <Route path="/hotels/add" element={<AddHotel />}/>
+          <Route path="/hotels/update/:hotelId" element={<UpdateHotel />}/>
+          <Route path="/hotels/:id" element={<OneHotel />}/>
           <Route path="/offers" element={<Offers />}/>
+          <Route path="/offers/:id" element={<OneOffer />}/>
           <Route path="/destinations" element={<Destinations />}/>
           <Route path="/reservations" element={<Reservations />}/>
         </Routes>
