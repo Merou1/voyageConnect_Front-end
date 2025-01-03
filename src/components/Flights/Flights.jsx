@@ -97,7 +97,11 @@ const Flights = () => {
                                         <td>{flight.airline}</td>
                                         <td>{flight.departure}</td>
                                         <td>{flight.departureDate}</td>
-                                        <td>{flight.destination}</td>
+                                        <td>
+                                            <Link to={`/destinations/${flight.destinationId}`}>
+                                               <strong>Destination : {flight.destinationId}</strong>  <br />
+                                            </Link>
+                                        </td>
                                         <td>
                                             <Link to={`/offers/${flight.offerId}`}>
                                                <strong>Offer : {flight.offerId}</strong>  <br />

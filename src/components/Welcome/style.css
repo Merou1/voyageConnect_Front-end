@@ -1,7 +1,9 @@
-
+body {
+    overflow: hidden;
+    overflow-x: hidden;
+}
 .home {
     margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,19 +12,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 100vh; 
-    width: 260vh; 
-    margin-bottom: 25vh;
-    height: 200vh;
-
+    width: 235vh; 
+    margin-bottom: 35vh;
+    height: 100%;
 }
-
-.home > * {
-    position: relative;
-    z-index: 10;
-
-}
-
 
 h1 {
     text-shadow: 1px 1px 2px black; /* Adds shadow for better visibility */
@@ -39,14 +32,15 @@ p {
 .explore {
     border-radius: 5px;
     box-shadow: 0 4px 8px;  
+    color: black;
 }
 .footer {
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 300vh;
     text-align: center;
-    padding: 10px 0;
-    background-color: rgba(33, 53, 71, 0.7); /* Match navbar style */
+    padding: 6px 0;
+    background-color: rgba(33, 53, 71, 1); /* Match navbar style */
 }
 .footer p {
     color: white;
@@ -57,5 +51,4 @@ p {
     width: 30vh;
     height: 30vh;
     background-color: transparent;
-    margin-right: 200vh;
 }

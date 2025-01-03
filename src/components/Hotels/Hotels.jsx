@@ -94,7 +94,7 @@ const Hotels = () => {
                                         </Link>
                                     </td>
                                     <td>{hotel.pricePerNight}</td>
-                                    <td>
+                                    <td className="td">
                                         <Link to={`/hotels/update/${hotel.id}`}>
                                             <button>Edit</button>
                                         </Link>

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const OneHotel = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [hotel, setHotel] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -32,9 +32,9 @@ const OneHotel = () => {
             <h2>Hotel Details</h2>
             <p><strong>Name:</strong> {hotel.name}</p>
             <p><strong>Location:</strong> {hotel.location}</p>
-            <p><strong>Stars:</strong> {hotel.stars}</p>
-            <p><strong>Offer ID:</strong> {hotel.offerId}</p>
-            <p><strong>Price Per Night:</strong> {hotel.pricePerNight}</p>
+            <p><strong>Price per Night:</strong> {hotel.pricePerNight} <strong>Dh</strong></p>
+            <p><strong>Rating:</strong> {hotel.stars} ⭐</p>
+            <p><strong>Description:</strong> {hotel.description}</p>
         </div>
     );
 };

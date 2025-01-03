@@ -28,11 +28,11 @@ const OneOffer = () => {
     if (!offer) return <p>No details found for this offer.</p>;
 
     return (
-        <div>
+        <div >
             <h2>Offer Details</h2>
-            <p><strong>ID:</strong> {offer.id}</p>
-            <p><strong>Description:</strong> {offer.offerDetails}</p>
-            <p><strong>Offer Price:</strong> {offer.offerPrice} <strong>Dh</strong></p>
+            <p style={{color:"black"}}><strong>ID:</strong> {offer.id}</p>
+            <p style={{color:"black"}}><strong>Description:</strong> {offer.offerDetails}</p>
+            <p style={{color:"black"}}><strong>Offer Price:</strong> {offer.offerPrice} <strong>Dh</strong></p>
         </div>
     );
 };

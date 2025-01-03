@@ -47,7 +47,7 @@ const AddHotel = () => {
     return (
         <div>
             <h2>Add Hotel</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="AddForm" onSubmit={handleSubmit}>
                 <input
                     type="text"
                     placeholder="Name"
@@ -79,7 +79,7 @@ const AddHotel = () => {
                 <select onChange={(e) => setOfferId(e.target.value)} value={offerId} required>
                     <option value="" disabled>-- Select an Offer --</option>
                     {offers.map((offer) => (
-                        <option key={offer.id} value={offer.id}>{offer.offerDetails}</option>
+                        <option key={offer.id} value={offer.id}>{offer.id}--{offer.offerDetails}</option>
                     ))}
                 </select>
                 <button type="submit">Add Hotel</button>
