@@ -35,8 +35,8 @@ const OneDestination = () => {
             <h2>Destination Details</h2>
             <div>
                 <h3>{destination.name}</h3>
-                <p><strong>Country:</strong> {destination.country}</p>
-                <p><strong>Description:</strong> {destination.description}</p>
+                <h4><strong>Country:</strong> {destination.country}</h4>
+                <h4><strong>Description:</strong> {destination.description}</h4>
             </div>
         </div>
     );
