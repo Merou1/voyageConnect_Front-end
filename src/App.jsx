@@ -23,6 +23,8 @@ import AddOffer from './components/Offers/AddOffer';
 import AddDestination from './components/Destinations/AddDestination';
 import UpdateDestination from './components/Destinations/UpdateDestination';
 import OneDestination from './components/Destinations/OneDestination';
+import ClientReservation from './components/Client_Reservations/ClientReservation';
+import ClientOffers from './components/Client_Offers/ClientOffers';
 
 
 
@@ -57,6 +59,10 @@ function App() {
           <Route path="/destinations/update/:id" element={<UpdateDestination />} />
           <Route path="/destinations/:id" element={<OneDestination />} />         
           <Route path="/reservations" element={<Reservations />}/>
+
+          <Route path="/client-reservations" element={<ClientReservation />}/>
+          <Route path="/client-offers" element={<ClientOffers />}/>
+
         </Routes>
       </Router>
     </>
