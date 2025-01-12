@@ -2,7 +2,7 @@
 const ClientOffers = () => {
 
     return(
-        <h1>Welcom to client Offers</h1>
+        <h1>Welcome to client Offers</h1>
     )
 }
 export default ClientOffers;

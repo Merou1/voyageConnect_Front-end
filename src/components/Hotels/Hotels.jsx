@@ -80,11 +80,23 @@ const Hotels = () => {
                                 <th>Offer</th>
                                 <th>Price</th>
                                 <th>Actions</th>
+                                <th>Image</th>
                             </tr>
                         </thead>
                         <tbody>
                             {hotels.map((hotel, index) => (
                                 <tr key={index}>
+                                    <td>
+                                        {hotel.imageUrl ? (
+                                            <img 
+                                                src={hotel.imageUrl} 
+                                                alt={hotel.name}
+                                                style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                                            />
+                                        ) : (
+                                            <div>No image</div>
+                                        )}
+                                    </td>
                                     <td>{hotel.name}</td>
                                     <td>{hotel.location}</td>
                                     <td>{hotel.stars}</td>

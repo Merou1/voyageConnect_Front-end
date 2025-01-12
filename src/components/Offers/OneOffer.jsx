@@ -30,9 +30,9 @@ const OneOffer = () => {
     return (
         <div >
             <h2>Offer Details</h2>
-            <p style={{color:"black"}}><strong>ID:</strong> {offer.id}</p>
-            <p style={{color:"black"}}><strong>Description:</strong> {offer.offerDetails}</p>
-            <p style={{color:"black"}}><strong>Offer Price:</strong> {offer.offerPrice} <strong>Dh</strong></p>
+            <h3 style={{color:"black"}}><strong>ID:</strong> {offer.id}</h3>
+            <h3 style={{color:"black"}}><strong>Description:</strong> {offer.offerDetails}</h3>
+            <h3 style={{color:"black"}}><strong>Offer Price:</strong> {offer.offerPrice} <strong>Dh</strong></h3>
         </div>
     );
 };

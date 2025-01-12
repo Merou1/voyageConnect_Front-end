@@ -9,6 +9,8 @@ const AddHotel = () => {
     const [stars, setStars] = useState("");
     const [pricePerNight, setpricePerNight] = useState("");
     const [offerId, setOfferId] = useState(null);
+    const [image, setImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
 
     useEffect(() => {
         const fetchOffers = async () => {
@@ -25,11 +27,33 @@ const AddHotel = () => {
         fetchOffers();
     }, []);
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            // Create preview URL
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const hotel = { name, location, stars, pricePerNight, offer: { id: offerId } };
-
+        
         try {
+            const base64Image = previewUrl;
+            
+            const hotel = { 
+                name, 
+                location, 
+                stars, 
+                pricePerNight, 
+                offer: { id: offerId },
+                imageUrl: base64Image 
+            };
+
             await axios.post("http://localhost:8080/api/hotels", hotel, {
                 withCredentials: true,
             });
@@ -38,6 +62,8 @@ const AddHotel = () => {
             setLocation("");
             setStars("");
             setpricePerNight("");
+            setImage(null);
+            setPreviewUrl(null);
         } catch (err) {
             console.error("Error adding hotel:", err);
             alert("Error adding hotel.");
@@ -82,6 +108,21 @@ const AddHotel = () => {
                         <option key={offer.id} value={offer.id}>{offer.id}--{offer.offerDetails}</option>
                     ))}
                 </select>
+                <div className="image-upload">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        required
+                    />
+                    {previewUrl && (
+                        <img 
+                            src={previewUrl} 
+                            alt="Preview" 
+                            style={{ maxWidth: '200px', marginTop: '10px' }} 
+                        />
+                    )}
+                </div>
                 <button type="submit">Add Hotel</button>
             </form>
         </div>

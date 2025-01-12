@@ -10,6 +10,8 @@ const UpdateHotel = () => {
   const [stars, setStars] = useState("");
   const [pricePerNight, setPricePerNight] = useState("");
   const [offerId, setOfferId] = useState(null);
+  const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const { hotelId } = useParams();
 
   useEffect(() => {
@@ -24,10 +26,22 @@ const UpdateHotel = () => {
         setStars(hotel.stars);
         setPricePerNight(hotel.pricePerNight);
         setOfferId(hotel.offerId || null);
+        setPreviewUrl(hotel.imageUrl);
       } catch (error) {
         console.error("Error fetching hotel details:", error);
       }
     };
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+          setImage(file);
+          const reader = new FileReader();
+          reader.onloadend = () => {
+              setPreviewUrl(reader.result);
+          };
+          reader.readAsDataURL(file);
+      }
+  };
 
     const fetchOffer = async () => {
       try {
@@ -46,29 +60,41 @@ const UpdateHotel = () => {
     }
   }, [hotelId, offerId]);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        setImage(file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewUrl(reader.result);
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const updatedHotel = {
-      name,
-      location,
-      stars: parseFloat(stars),
-      pricePerNight: parseFloat(pricePerNight),
-      offer: { id: parseInt(offerId, 10) },
+        name,
+        location,
+        stars: parseFloat(stars),
+        pricePerNight: parseFloat(pricePerNight),
+        offer: { id: parseInt(offerId, 10) },
+        imageUrl: previewUrl
     };
 
     try {
-      const response = await axios.put(`http://localhost:8080/api/hotels/${hotelId}`, updatedHotel, {
-        withCredentials: true,
-      });
-      console.log("Hotel updated successfully:", response.data);
-      alert("Hotel updated successfully!");
+        const response = await axios.put(`http://localhost:8080/api/hotels/${hotelId}`, updatedHotel, {
+            withCredentials: true,
+        });
+        console.log("Hotel updated successfully:", response.data);
+        alert("Hotel updated successfully!");
     } catch (err) {
-      console.error("Error updating hotel:", err);
-      alert("Error updating hotel. Please try again.");
+        console.error("Error updating hotel:", err);
+        alert("Error updating hotel. Please try again.");
     }
-  };
-
+};
   return (
     <div>
       <h2>Update Hotel</h2>
@@ -112,6 +138,20 @@ const UpdateHotel = () => {
               </option>
             )}
           </select>
+          <div className="image-upload">
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                    />
+                    {previewUrl && (
+                        <img 
+                            src={previewUrl} 
+                            alt="Preview" 
+                            style={{ maxWidth: '200px', marginTop: '10px' }} 
+                        />
+                    )}
+                </div>
         </div>
         <button type="submit">Update Hotel</button>
       </form>

@@ -66,7 +66,7 @@
     color: #007BFF;
     font-weight: bold;
     font-size: 6vh;
-    text-shadow: 1px 1px 2px white; /* Adds shadow for better visibility */
+    text-shadow: 1px 1px 2px white;
 }
 
 .dashboard-item a:hover {
@@ -79,7 +79,4 @@
     border-radius: 20px;
     background-color: rgb(220, 232, 241);
     margin-right: 30px;
-}
-.welcome:hover {
-    margin-top: 20px;
 }

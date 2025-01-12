@@ -30,11 +30,20 @@ const OneHotel = () => {
     return (
         <div>
             <h2>Hotel Details</h2>
-            <p><strong>Name:</strong> {hotel.name}</p>
-            <p><strong>Location:</strong> {hotel.location}</p>
-            <p><strong>Price per Night:</strong> {hotel.pricePerNight} <strong>Dh</strong></p>
-            <p><strong>Rating:</strong> {hotel.stars} ⭐</p>
-            <p><strong>Description:</strong> {hotel.description}</p>
+            {hotel.imageUrl && (
+                <div className="hotel-image">
+                    <img 
+                        src={hotel.imageUrl} 
+                        alt={hotel.name}
+                        style={{ maxWidth: '400px', marginBottom: '20px' }}
+                    />
+                </div>
+            )}
+            <h3><strong>Name:</strong> {hotel.name}</h3>
+            <h3><strong>Location:</strong> {hotel.location}</h3>
+            <h3><strong>Price per Night:</strong> {hotel.pricePerNight} <strong>Dh</strong></h3>
+            <h3><strong>Rating:</strong> {hotel.stars} ⭐</h3>
+            <h3><strong>Description:</strong> {hotel.description}</h3>
         </div>
     );
 };

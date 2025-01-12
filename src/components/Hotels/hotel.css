@@ -90,3 +90,16 @@ form {
 .AddForm {
     height: 80vh;
 }
+.image-upload {
+    margin: 10px 0;
+}
+
+.hotel-image img {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+table img {
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}

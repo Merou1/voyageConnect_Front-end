@@ -30,12 +30,12 @@ const OneFlight = () => {
     return (
         <div>
             <h2>Flight Details</h2>
-            <p><strong>Airline:</strong> {flight.airline}</p>
-            <p><strong>Departure:</strong> {flight.departure}</p>
-            <p><strong>Destination:</strong> {flight.destinationId}</p>
-            <p><strong>Departure Date:</strong> {flight.departureDate}</p>
-            <p><strong>Return Date:</strong> {flight.returnDate}</p>
-            <p><strong>Price:</strong> {flight.price} <strong>Dh</strong></p>
+            <h3><strong>Airline:</strong> {flight.airline}</h3>
+            <h3><strong>Departure:</strong> {flight.departure}</h3>
+            <h3><strong>Destination:</strong> {flight.destinationId}</h3>
+            <h3><strong>Departure Date:</strong> {flight.departureDate}</h3>
+            <h3><strong>Return Date:</strong> {flight.returnDate}</h3>
+            <h3><strong>Price:</strong> {flight.price} <strong>Dh</strong></h3>
         </div>
     );
 };
