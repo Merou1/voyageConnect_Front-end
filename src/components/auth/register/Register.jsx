@@ -74,7 +74,7 @@ const Register = () => {
                 <option value="ROLE_CLIENT">ROLE_CLIENT</option>
                 <option value="ROLE_ADMIN">ROLE_ADMIN</option>
             </select>
-            <p className="selecteRole">Selected Role: <span className="role">{role}</span></p>
+            <h3 className="selecteRole">Selected Role: <span className="role">{role}</span></h3>
             <button type="submit">Register</button>
             <button type="button" onClick={handleLoginRedirect}>Login</button>
         </form>

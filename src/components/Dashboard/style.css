@@ -75,8 +75,9 @@
 .welcome {
     font-weight: 500;
     box-shadow: 0 4px 8px rgb(159, 197, 228);  
-    padding: 10px;
     border-radius: 20px;
     background-color: rgb(220, 232, 241);
     margin-right: 30px;
+    height: 18vh;
+    padding-inline: 20px;
 }

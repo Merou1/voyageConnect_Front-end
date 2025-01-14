@@ -51,7 +51,7 @@ const Offers = () => {
             {
                 offers.length === 0
                     ? <p>Loading...</p>
-                    : <table>
+                    : <table className="offerTab">
                         <thead>
                             <tr>
                                 <th>Destination ID</th>

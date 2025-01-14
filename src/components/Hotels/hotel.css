@@ -5,11 +5,12 @@ td,th,tr {
     border: 3px solid #cba994;
     padding: 8px;
 }
-table {
+.hotelTab {
     border: 1px solid black;
     border-collapse: collapse;
     width: 80% ;
     border-radius: 10px;
+    margin-bottom: 40vh;
 }
 .HotelsList {
     display: flex;
@@ -88,7 +89,7 @@ form {
     gap: 50px;
 }
 .AddForm {
-    height: 80vh;
+    height: 100vh;
 }
 .image-upload {
     margin: 10px 0;

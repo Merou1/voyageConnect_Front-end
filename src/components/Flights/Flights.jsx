@@ -77,7 +77,7 @@ const Flights = () => {
             {
                 flights.length === 0
                     ? <p>Loading...</p>
-                    : <table>
+                    : <table className="flightTab">
                         <thead>
                             <tr>
                                 <th>Airline</th>

@@ -25,7 +25,7 @@ import UpdateDestination from './components/Destinations/UpdateDestination';
 import OneDestination from './components/Destinations/OneDestination';
 import ClientReservation from './components/Client_Reservations/ClientReservation';
 import ClientOffers from './components/Client_Offers/ClientOffers';
-
+import OneHotelClient from './components/Hotels/OneHotelClient';
 
 
 
@@ -50,6 +50,7 @@ function App() {
           <Route path="/hotels/add" element={<AddHotel />}/>
           <Route path="/hotels/update/:hotelId" element={<UpdateHotel />}/>
           <Route path="/hotels/:id" element={<OneHotel />}/>
+          <Route path="/client-hotels/:id" element={<OneHotelClient />}/>
           <Route path="/offers" element={<Offers />}/>
           <Route path="/offers/add" element={<AddOffer />}/>
           <Route path="/offers/:id" element={<OneOffer />}/>

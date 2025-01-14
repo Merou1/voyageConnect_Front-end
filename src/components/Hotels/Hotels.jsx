@@ -71,16 +71,16 @@ const Hotels = () => {
             {
                 hotels.length === 0
                     ? <p>Loading...</p>
-                    : <table>
+                    : <table className="hotelTab">
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Name</th>
                                 <th>Location</th>
                                 <th>Rating</th>
                                 <th>Offer</th>
                                 <th>Price</th>
                                 <th>Actions</th>
-                                <th>Image</th>
                             </tr>
                         </thead>
                         <tbody>

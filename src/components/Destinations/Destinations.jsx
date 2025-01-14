@@ -52,7 +52,7 @@ const Destinations = () => {
             {
                 destinations.length === 0
                     ? <p>Loading...</p>
-                    : <table>
+                    : <table className="DestTable">
                         <thead>
                             <tr>
                                 <th>Name</th>

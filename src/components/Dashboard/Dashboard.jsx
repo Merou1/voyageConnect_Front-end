@@ -5,7 +5,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard">
             <div  className='welcome'>
-            <h3>
+            <h3 className='Welcomh3'>
                 Welcome <br /> here you can find offers and make or check reservations
             </h3>
             </div>

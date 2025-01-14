@@ -7,11 +7,12 @@ td,th,tr {
     color: white;
     font-weight: bold;
 }
-table {
+.DestTable {
     border: 1px solid black;
     border-collapse: collapse;
     width: 80% ;
     border-radius: 10px;
+    margin-bottom: 50vh;
 }
 .DestinationsList {
     display: flex;
