@@ -62,7 +62,7 @@ const Register = () => {
 
     return(
         <>
-        <h2>Register</h2>
+        <h2 className="reg">Register</h2>
         <form className="form" onSubmit={handleFormeSubmit}>
             <input type="text" name="" id="" placeholder="Full name" value={fullName} onChange={setFullNameChange} />
             <input type="text" name="" id="" placeholder="Email" value={username} onChange={setUsernameChange} />

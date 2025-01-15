@@ -67,7 +67,7 @@ const Hotels = () => {
             <div>
                 <Link to="/hotels/add"><h3>Add Hotel</h3></Link>
             </div>
-            <h2>Hotels List</h2>
+            <h2 className="List">Hotels List</h2>
             {
                 hotels.length === 0
                     ? <p>Loading...</p>

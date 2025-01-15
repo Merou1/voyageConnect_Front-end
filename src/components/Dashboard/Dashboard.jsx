@@ -4,8 +4,8 @@ import './style.css';
 const Dashboard = () => {
     return (
         <div className="dashboard">
-            <div  className='welcome'>
-            <h3 className='Welcomh3'>
+            <div  className='welcomewelcome'>
+            <h3 className='welcomeh3'>
                 Welcome <br /> here you can find offers and make or check reservations
             </h3>
             </div>

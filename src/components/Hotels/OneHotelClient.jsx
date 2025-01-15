@@ -42,10 +42,10 @@ const OneHotelClient = () => {
           </div>
         )}
         <div className="hotel-info">
-          <h3><strong>Name:</strong> {hotel.name}</h3>
-          <h3><strong>Location:</strong> {hotel.location}</h3>
-          <h3><strong>Price per Night:</strong> {hotel.pricePerNight} <strong>Dh</strong></h3>
-          <h3><strong>Rating:</strong> {hotel.stars} ⭐</h3>
+          <h3><strong> <span className="data">Name:</span></strong> {hotel.name}</h3>
+          <h3><strong><span className="data">Location:</span></strong> {hotel.location}</h3>
+          <h3><strong><span className="data">Price per Night:</span></strong> {hotel.pricePerNight} <strong>Dh</strong></h3>
+          <h3><strong><span className="data">Rating:</span></strong> {hotel.stars} ⭐</h3>
         </div>
       </div>
     </div>

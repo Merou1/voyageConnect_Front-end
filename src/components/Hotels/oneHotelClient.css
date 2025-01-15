@@ -20,17 +20,16 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(162, 194, 247, 0.8);
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 80vh;
+    height: 70vh;
   }
   
   /* Image container and styling */
   .hotel-image-container {
-    width: 100%;
     max-width: 400px;
     margin-bottom: 20px;
     text-align: center;
@@ -38,7 +37,7 @@
   
   .hotel-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 8px;
     object-fit: cover;
   }
@@ -53,3 +52,7 @@
     color: #2c3e50;
   }
   
+  .data {
+    color: #007bff;
+    text-shadow: 1px 1px rgb(234, 227, 250);
+  }

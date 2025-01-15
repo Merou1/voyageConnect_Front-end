@@ -26,6 +26,8 @@ import OneDestination from './components/Destinations/OneDestination';
 import ClientReservation from './components/Client_Reservations/ClientReservation';
 import ClientOffers from './components/Client_Offers/ClientOffers';
 import OneHotelClient from './components/Hotels/OneHotelClient';
+import { UserProvider } from './components/UserProvider/UserProvider';
+import ReservationsList from './components/Client_Reservations/ReservationsList';
 
 
 
@@ -34,7 +36,7 @@ import OneHotelClient from './components/Hotels/OneHotelClient';
 function App() {
 
   return (
-    <>
+    <UserProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Welcome />}/>
@@ -61,12 +63,13 @@ function App() {
           <Route path="/destinations/:id" element={<OneDestination />} />         
           <Route path="/reservations" element={<Reservations />}/>
 
-          <Route path="/client-reservations" element={<ClientReservation />}/>
+          <Route path="/client-reservations" element={<ReservationsList />}/>
+          <Route path="/client-reservation/:offerId" element={<ClientReservation />}/>
           <Route path="/client-offers" element={<ClientOffers />}/>
 
         </Routes>
       </Router>
-    </>
+    </UserProvider>
   )
 }
 
