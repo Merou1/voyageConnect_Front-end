@@ -2,11 +2,21 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import './Destinations.css';
+import { useUser } from "../UserProvider/UserProvider";
 
 const Destinations = () => {
     const [destinations, setDestinations] = useState([]);
+    const { user } = useUser();
+  const navigate = useNavigate();
+
+
+ useEffect(() => {
+      if (!user) {
+        navigate('/login');
+      }
+    }, [user, navigate]);
 
     useEffect(() => {
         const fetchDestinations = async () => {
@@ -46,7 +56,7 @@ const Destinations = () => {
     return (
         <div className="DestinationsList">
             <div>
-                <Link to="/destinations/add"><h3>Add Destination</h3></Link>
+                <Link to="/destinations/add"><h3 className="add">Add Destination</h3></Link>
             </div>
             <h2>Destinations List</h2>
             {

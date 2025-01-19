@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import './hotel.css';
+import { useUser } from "../UserProvider/UserProvider";
 
 const Hotels = () => {
     const [hotels, setHotels] = useState([]);
     const [offerDetails, setOfferDetails] = useState({}); 
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+
+  useEffect(() => {
+      if (!user) {
+        navigate('/login');
+      }
+    }, [user, navigate]);
 
     useEffect(() => {
         const fetchHotels = async () => {
@@ -65,7 +75,7 @@ const Hotels = () => {
     return (
         <div className="HotelsList">
             <div>
-                <Link to="/hotels/add"><h3>Add Hotel</h3></Link>
+                <Link to="/hotels/add"><h3 className="add">Add Hotel</h3></Link>
             </div>
             <h2 className="List">Hotels List</h2>
             {
@@ -105,7 +115,7 @@ const Hotels = () => {
                                         <strong>Offer : {hotel.offerId}</strong>  <br />
                                         </Link>
                                     </td>
-                                    <td>{hotel.pricePerNight}</td>
+                                    <td>{hotel.pricePerNight} <strong>Dh</strong></td>
                                     <td className="td">
                                         <Link to={`/hotels/update/${hotel.id}`}>
                                             <button>Edit</button>

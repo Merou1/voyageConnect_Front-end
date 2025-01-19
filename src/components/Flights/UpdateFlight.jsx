@@ -1,19 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider/UserProvider";
 import "./flight.css";
 
 const UpdateFlight = () => {
   const [offer, setOffer] = useState(null);
+  const [destinations, setDestinations] = useState([]); // Add state for destinations
   const [airline, setAirline] = useState("");
   const [departure, setDeparture] = useState("");
-  const [destination, setDestination] = useState("");
+  const [destinationId, setDestinationId] = useState(""); // Change to destinationId
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [price, setPrice] = useState("");
   const [offerId, setOfferId] = useState(null);
   const { flightId } = useParams();
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchFlightDetails = async () => {
@@ -24,11 +33,11 @@ const UpdateFlight = () => {
         const flight = response.data;
         setAirline(flight.airline);
         setDeparture(flight.departure);
-        setDestination(flight.destination);
+        setDestinationId(flight.destination.id); // Set destination ID
         setDepartureDate(flight.departureDate);
         setReturnDate(flight.returnDate);
         setPrice(flight.price);
-        setOfferId(flight.offerId || null);
+        setOfferId(flight.offer?.id || null);
       } catch (error) {
         console.error("Error fetching flight details:", error);
       }
@@ -49,8 +58,20 @@ const UpdateFlight = () => {
       }
     };
 
+    const fetchDestinations = async () => {
+      try {
+        const result = await axios.get("http://localhost:8080/admin/destinations", {
+          withCredentials: true,
+        });
+        setDestinations(result.data);
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+      }
+    };
+
     fetchFlightDetails();
     fetchOffers();
+    fetchDestinations();
   }, [flightId]);
 
   const handleSubmit = async (e) => {
@@ -59,7 +80,7 @@ const UpdateFlight = () => {
     const updatedFlight = {
       airline,
       departure,
-      destination,
+      destination: { id: parseInt(destinationId, 10) }, // Pass destination as an object with ID
       departureDate,
       returnDate,
       price: parseFloat(price),
@@ -80,7 +101,7 @@ const UpdateFlight = () => {
 
   return (
     <div>
-      <h2>Update Flight</h2>
+      <h2 className="label">Update Flight</h2>
       <form onSubmit={handleSubmit}>
         <div className="form">
           <input
@@ -97,13 +118,20 @@ const UpdateFlight = () => {
             onChange={(e) => setDeparture(e.target.value)}
             required
           />
-          <input
-            type="text"
-            placeholder="Destination"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+          <select
+            value={destinationId}
+            onChange={(e) => setDestinationId(e.target.value)}
             required
-          />
+          >
+            <option value="" disabled>
+              -- Select a Destination --
+            </option>
+            {destinations.map((destination) => (
+              <option key={destination.id} value={destination.id}>
+                {destination.name} - {destination.country}
+              </option>
+            ))}
+          </select>
           <input
             type="datetime-local"
             value={departureDate}

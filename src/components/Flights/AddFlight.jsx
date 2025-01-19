@@ -1,16 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./flight.css";
+import { useUser } from "../UserProvider/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 const AddFlight = () => {
-  const [offers, setOffers] = useState([]); 
+  const [offers, setOffers] = useState([]);
+  const [destinations, setDestinations] = useState([]); // Add state for destinations
   const [airline, setAirline] = useState("");
-  const [departure, setDeparture] = useState("");
-  const [destination, setDestination] = useState("");
+  const [departure, setDeparture] = useState("Casablanca Airport"); // Default to "Casablanca Airport"
+  const [destinationId, setDestinationId] = useState(""); // Change to destinationId
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [price, setPrice] = useState("");
   const [offerId, setOfferId] = useState(null);
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -30,43 +41,58 @@ const AddFlight = () => {
       }
     };
 
+    const fetchDestinations = async () => {
+      try {
+        const result = await axios.get("http://localhost:8080/admin/destinations", {
+          withCredentials: true,
+        });
+        setDestinations(result.data);
+        if (result.data.length > 0) {
+          setDestinationId(result.data[0].id); // Pre-select the first destination
+        }
+      } catch (error) {
+        console.error("Error fetching destinations:", error);
+      }
+    };
+
     fetchOffers();
+    fetchDestinations();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const flight = {
-      airline,
-      departure,
-      destination,
-      departureDate,
-      returnDate,
-      price: parseFloat(price),
-      offer: { id: offerId },
+        airline,
+        departure,
+        destination: { id: parseInt(destinationId, 10) }, // Pass destination as an object with ID
+        departureDate,
+        returnDate,
+        price: parseFloat(price),
+        offerId: parseInt(offerId, 10), // Send only the offerId
     };
 
     try {
-      const response = await axios.post("http://localhost:8080/api/flights", flight, {
-        withCredentials: true,
-      });
-      console.log("Flight added successfully:", response.data);
-      alert("Flight added successfully!");
-      setAirline("")
-      setDeparture("")
-      setDepartureDate("")
-      setDestination("")
-      setOfferId("")
-      setPrice("")
+        const response = await axios.post("http://localhost:8080/api/flights", flight, {
+            withCredentials: true,
+        });
+        console.log("Flight added successfully:", response.data);
+        alert("Flight added successfully!");
+        setAirline("");
+        setDeparture("");
+        setDestinationId("");
+        setDepartureDate("");
+        setReturnDate("");
+        setPrice("");
+        setOfferId(null);
     } catch (err) {
-      console.error("Error adding flight:", err);
-      alert("Error adding flight. Please try again.");
+        console.error("Error adding flight:", err);
+        alert("Error adding flight. Please try again.");
     }
-  };
-
+};
   return (
-    <div >
-      <h2>Add Flight</h2>
+    <div>
+      <h2 className="label">Add Flight</h2>
       <form onSubmit={handleSubmit}>
         <div className="form">
           <input
@@ -76,20 +102,32 @@ const AddFlight = () => {
             onChange={(e) => setAirline(e.target.value)}
             required
           />
-          <input
-            type="text"
-            placeholder="Departure"
+          <label htmlFor="departure">Departure:</label>
+          <select
+            id="departure"
             value={departure}
             onChange={(e) => setDeparture(e.target.value)}
             required
-          />
-          <input
-            type="text"
-            placeholder="Destination"
-            value={destination}
-            onChange={(e) => setDestination(e.target.value)}
+          >
+            <option value="Casablanca Airport">Casablanca Airport</option>
+          </select>
+
+          <label htmlFor="destination">Destination:</label>
+          <select
+          id="destination" 
+            value={destinationId}
+            onChange={(e) => setDestinationId(e.target.value)}
             required
-          />
+          >
+            <option value="" disabled>
+              -- Select a Destination --
+            </option>
+            {destinations.map((destination) => (
+              <option key={destination.id} value={destination.id}>
+                {destination.name} - {destination.country}
+              </option>
+            ))}
+          </select>
           <input
             type="datetime-local"
             value={departureDate}

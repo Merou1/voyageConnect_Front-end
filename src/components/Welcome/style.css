@@ -20,7 +20,12 @@ body {
     width: 100vw; /* Full width */
     min-height: 100vh; /* Full viewport height */
 }
-
+.welcomeTo {
+    font-size: xx-large;
+    color: black;
+    text-shadow: 1px 1px 2px indigo;
+    font-weight: bolder;
+}
 /* Heading */
 h1 {
     text-shadow: 1px 1px 2px black;
@@ -43,16 +48,18 @@ p {
 .explore {
     border-radius: 7px;
     color: black;
+    text-shadow: 1px 1px 2px white;
 }
 
 /* Footer */
 .footer {
-    position: relative; /* Prevent overlapping */
+    position: relative; 
     bottom: 0;
-    width: 100%; /* Full width */
+    width: 100%;
     text-align: center;
     padding: 10px 0;
-    background-color: rgba(33, 53, 71, 0.5); /* Match navbar style */
+    background-color: rgba(33, 53, 71, 0.5); 
+    margin-top: 50px;
 }
 
 .footer p {

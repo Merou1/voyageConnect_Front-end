@@ -58,7 +58,9 @@ select {
 .selecteRole {
     display: flex;
     height: 10px;
+    color: #213547;
 }
 .role {
     margin-left: 5px;
+    color: #213547;
 }

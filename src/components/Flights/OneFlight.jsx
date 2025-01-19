@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUser } from "../UserProvider/UserProvider";
 
 const OneFlight = () => {
     const { id } = useParams();
     const [flight, setFlight] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { user } = useUser();
+    const navigate = useNavigate();
+  
+  
+    useEffect(() => {
+        if (!user) {
+          navigate('/login');
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         const fetchFlight = async () => {
@@ -30,12 +40,12 @@ const OneFlight = () => {
     return (
         <div>
             <h2>Flight Details</h2>
-            <h3><strong>Airline:</strong> {flight.airline}</h3>
-            <h3><strong>Departure:</strong> {flight.departure}</h3>
-            <h3><strong>Destination:</strong> {flight.destinationId}</h3>
-            <h3><strong>Departure Date:</strong> {flight.departureDate}</h3>
-            <h3><strong>Return Date:</strong> {flight.returnDate}</h3>
-            <h3><strong>Price:</strong> {flight.price} <strong>Dh</strong></h3>
+            <h4><strong>Airline:</strong> {flight.airline}</h4>
+            <h4><strong>Departure:</strong> {flight.departure}</h4>
+            <h4><strong>Destination:</strong> {flight.destinationId}</h4>
+            <h4><strong>Departure Date:</strong> {flight.departureDate}</h4>
+            <h4><strong>Return Date:</strong> {flight.returnDate}</h4>
+            <h4><strong>Price:</strong> {flight.price} <strong>Dh</strong></h4>
         </div>
     );
 };

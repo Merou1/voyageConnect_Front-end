@@ -1,13 +1,23 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import './Destinations.css';
+import { useUser } from "../UserProvider/UserProvider";
 
 const AddDestination = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [country, setCountry] = useState("");
+    const { user } = useUser();
+    const navigate = useNavigate();
+  
+  
+   useEffect(() => {
+        if (!user) {
+          navigate('/login');
+        }
+      }, [user, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,7 +45,7 @@ const AddDestination = () => {
 
     return (
         <div className="AddDestination">
-            <h2>Add Destination</h2>
+            <h2 className="label">Add Destination</h2>
             <form className="AddForm" onSubmit={handleSubmit}>
                 <div>
                     <label>Name:</label>

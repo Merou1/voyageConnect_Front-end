@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import "./hotel.css";
+import { useUser } from "../UserProvider/UserProvider";
 
 const UpdateHotel = () => {
   const [offer, setOffer] = useState(null);
@@ -13,6 +14,15 @@ const UpdateHotel = () => {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const { hotelId } = useParams();
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+      if (!user) {
+        navigate('/login');
+      }
+    }, [user, navigate]);
 
   useEffect(() => {
     const fetchHotelDetails = async () => {
@@ -97,9 +107,9 @@ const UpdateHotel = () => {
 };
   return (
     <div>
-      <h2>Update Hotel</h2>
+      <h2 className="label">Update Hotel</h2>
       <form onSubmit={handleSubmit}>
-        <div className="form">
+        <div className="Updateform">
           <input
             type="text"
             placeholder="Name"

@@ -55,7 +55,7 @@ const ReservationsList = () => {
                                 <td>{reservation.reservationDate}</td>
                                 <td>{reservation.destinationName}</td>
                                 <td>{reservation.hotelName}</td>
-                                <td>${reservation.price}</td>
+                                <td>{reservation.price} <strong>Dh</strong></td>
                             </tr>
                         ))}
                     </tbody>

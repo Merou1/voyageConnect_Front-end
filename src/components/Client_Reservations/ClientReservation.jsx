@@ -43,10 +43,19 @@ const ClientReservation = () => {
           }
         );
         alert(response.data);
-        navigate('/dashboard'); // or wherever you want to redirect after success
+        navigate('/dashboard'); 
       } catch (error) {
         console.error("Error creating reservation:", error);
-        alert("Failed to create reservation");
+        if (error.response) {
+          // Backend returned an error response (e.g., 400, 500)
+          alert(`Failed to create reservation: ${error.response.data}`);
+        } else if (error.request) {
+          // No response received from the backend
+          alert("Failed to create reservation: No response from the server.");
+        } else {
+          // Something else went wrong
+          alert("Failed to create reservation: Please try again later.");
+        }
       }
     };
   

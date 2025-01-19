@@ -86,7 +86,6 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
 }
 .AddForm {
     height: 100vh;
@@ -110,4 +109,25 @@ table img {
 }
 .List {
     color: wheat;
+}
+.add {
+    color: #646cff;
+    position: fixed;
+    margin-left: 84vh;
+
+}
+.add:hover {
+    color: #535bf2;
+}
+.label {
+    color: #213547;
+}
+.Updateform {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    height: 100vh;
 }

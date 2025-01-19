@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUser } from "../UserProvider/UserProvider";
 
 const OneOffer = () => {
     const { id } = useParams();
     const [offer, setOffer] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+        }, [user, navigate]);
 
     useEffect(() => {
         const fetchOffer = async () => {
@@ -30,9 +40,9 @@ const OneOffer = () => {
     return (
         <div >
             <h2>Offer Details</h2>
-            <h3 style={{color:"black"}}><strong>ID:</strong> {offer.id}</h3>
-            <h3 style={{color:"black"}}><strong>Description:</strong> {offer.offerDetails}</h3>
-            <h3 style={{color:"black"}}><strong>Offer Price:</strong> {offer.offerPrice} <strong>Dh</strong></h3>
+            <h4 style={{color:"black"}}><strong>ID:</strong> {offer.id}</h4>
+            <h4 style={{color:"black"}}><strong>Description:</strong> {offer.offerDetails}</h4>
+            <h4 style={{color:"black"}}><strong>Offer Price:</strong> {offer.offerPrice} <strong>Dh</strong></h4>
         </div>
     );
 };

@@ -1,15 +1,24 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link,useNavigate,useParams } from "react-router-dom";
 import './Destinations.css';
+import { useUser } from "../UserProvider/UserProvider";
 
 const UpdateDestination = () => {
     const { id } = useParams();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [country, setCountry] = useState("");
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+        }, [user, navigate]);
 
     useEffect(() => {
         const fetchDestinationDetails = async () => {
@@ -52,7 +61,7 @@ const UpdateDestination = () => {
 
     return (
         <div className="UpdateDestination">
-            <h2>Update Destination</h2>
+            <h2 className="label">Update Destination</h2>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name:</label>

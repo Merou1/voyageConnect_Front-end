@@ -11,7 +11,7 @@ const Welcome = () => {
         src="src/assets/voyageConnect_logo-removebg-preview.png"
         alt="app logo"
       />
-      <h1>Welcome to VoyageConnect - Your Travel Agency</h1>
+      <h1 className='welcomeTo'>Welcome to VoyageConnect - Your Travel Agency</h1>
       <p className="explore">Explore the world with us!</p>
       <Link to="/register">
         <button className="register-btn">Register</button>

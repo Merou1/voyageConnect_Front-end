@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import './clientOffers.css'
+import { useUser } from "../UserProvider/UserProvider";
 
 const ClientOffers = () => {
   const [offers, setOffers] = useState([]);
@@ -11,6 +12,9 @@ const ClientOffers = () => {
     minPrice: '',
     maxPrice: ''
   });
+  const { user } = useUser();
+  const navigate = useNavigate();
+  
 
   useEffect(() => {
     fetch("http://localhost:8080/client/offers", {
@@ -27,6 +31,11 @@ const ClientOffers = () => {
       .then((data) => setOffers(data))
       .catch((error) => console.error(error));
   }, []);
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user, navigate]);
 
   const fetchOfferDetails = (id) => {
     console.log("id in fetchofferdetals client side : "+id)
@@ -83,7 +92,7 @@ const ClientOffers = () => {
         <ul className="offers-list">
           {offers.map(offer => (
             <li className="offer-item" key={offer.id}>
-              <h2>{offer.country} - {offer.destinationName} - ${offer.offerPrice}</h2>
+              <h2>{offer.country} - {offer.destinationName} - {offer.offerPrice} <strong>Dh</strong></h2>
               <div className="offer-buttons">
                 <button onClick={() => fetchOfferDetails(offer.id)}>View Details</button>
                 <Link to={`/client-reservation/${offer.id}`}>
@@ -101,10 +110,10 @@ const ClientOffers = () => {
             <h3><strong>Hotel:</strong> {selectedOffer.hotelName} - <Link to={`/client-hotels/${selectedOffer.hotelId}`}>
                 <strong>View Hotel Details</strong>
               </Link></h3>
-            <h3><strong>Price per night:</strong> ${selectedOffer.pricePerNight}</h3>
+            <h3><strong>Hotel's Price per night:</strong> {selectedOffer.pricePerNight} <strong>Dh</strong></h3>
             <h3><strong>Flight:</strong> {selectedOffer.airline} (Departure: {selectedOffer.departure}, Return: {selectedOffer.returnDate})</h3>
-            <h3><strong>Total Price:</strong> ${selectedOffer.offerPrice}</h3>
-            <h3><strong>Details:</strong> {selectedOffer.offerDetails}</h3>
+            <h3><strong>Offer's Total Price:</strong> {selectedOffer.offerPrice} <strong>Dh</strong></h3>
+            <h3><strong>Offer Details:</strong> {selectedOffer.offerDetails}</h3>
           </div>
         )}
       </div>

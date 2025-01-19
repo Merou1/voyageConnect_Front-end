@@ -1,13 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useUser } from "../UserProvider/UserProvider";
 
 const UpdateOffer = () => {
     const [destinations, setDestinations] = useState([]);
     const [destinationId, setDestinationId] = useState("");
     const [offerDetails, setOfferDetails] = useState("");
-    const [offerPrice, setOfferPrice] = useState("");
     const { offerId } = useParams();
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         const fetchOfferDetails = async () => {
@@ -17,12 +25,11 @@ const UpdateOffer = () => {
                 });
                 const offer = response.data;
                 console.log(offer);
-                console.log(offer.destination)
-                console.log("''''''''''''''''''''''''"+offer.destinationId)
+                console.log(offer.destination);
+                console.log("''''''''''''''''''''''''" + offer.destinationId);
                 setDestinationId(offer.destinationId);
                 setOfferDetails(offer.offerDetails);
-                setOfferPrice(offer.offerPrice);
-                
+
                 // Fetch the destination related to this offer
                 const destResponse = await axios.get(`http://localhost:8080/admin/destination/${offer.destinationId}`, {
                     withCredentials: true,
@@ -43,8 +50,7 @@ const UpdateOffer = () => {
             destination: {
                 id: parseInt(destinationId, 10)
             },
-            offerDetails,
-            offerPrice: parseFloat(offerPrice)
+            offerDetails
         };
 
         try {
@@ -52,7 +58,7 @@ const UpdateOffer = () => {
                 withCredentials: true,
             });
             console.log("Offer updated successfully:", response.data);
-            alert("Offer updated successfully!");
+            alert(`Offer updated successfully! Price: ${response.data.offerPrice}`);
         } catch (err) {
             console.error("Error updating offer:", err);
             alert("Error updating offer. Please try again.");
@@ -61,7 +67,7 @@ const UpdateOffer = () => {
 
     return (
         <div>
-            <h2>Update Offer</h2>
+            <h2 className="label">Update Offer</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form">
                     <select
@@ -83,14 +89,6 @@ const UpdateOffer = () => {
                         placeholder="Offer Details"
                         value={offerDetails}
                         onChange={(e) => setOfferDetails(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="number"
-                        step="0.01"
-                        placeholder="Offer Price"
-                        value={offerPrice}
-                        onChange={(e) => setOfferPrice(e.target.value)}
                         required
                     />
                 </div>

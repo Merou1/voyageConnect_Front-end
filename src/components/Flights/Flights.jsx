@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import './flight.css';
+import { useUser } from "../UserProvider/UserProvider";
+
 
 const Flights = () => {
     const [flights, setFlights] = useState([]);
     const [offerDetails, setOfferDetails] = useState({}); // Object to store offer descriptions
+    const { user } = useUser();
+    const navigate = useNavigate();
+  
+  
+   useEffect(() => {
+        if (!user) {
+          navigate('/login');
+        }
+      }, [user, navigate]);
 
     useEffect(() => {
         const fetchFlights = async () => {
@@ -71,7 +82,7 @@ const Flights = () => {
     return (
         <div className="FlightsList">
             <div>
-                <Link to="/flights/add"><h3>Add Flight</h3></Link>
+                <Link to="/flights/add"><h3 className="add">Add Flight</h3></Link>
             </div>
             <h2>Flights List</h2>
             {

@@ -1,16 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useUser } from "../UserProvider/UserProvider";
+import { useNavigate } from "react-router-dom";
 
 const AddOffer = () => {
     const [destinations, setDestinations] = useState([]);
     const [destinationId, setDestinationId] = useState("");
     const [offerDetails, setOfferDetails] = useState("");
-    const [offerPrice, setOfferPrice] = useState("");
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         const fetchDestinations = async () => {
             try {
-                const result = await axios.get("http://localhost:8080/api/destinations", {
+                const result = await axios.get("http://localhost:8080/admin/destinations", {
                     withCredentials: true,
                 });
                 setDestinations(result.data);
@@ -32,8 +41,7 @@ const AddOffer = () => {
             destination: {
                 id: parseInt(destinationId, 10)
             },
-            offerDetails,
-            offerPrice: parseFloat(offerPrice)
+            offerDetails
         };
 
         try {
@@ -41,10 +49,9 @@ const AddOffer = () => {
                 withCredentials: true,
             });
             console.log("Offer added successfully:", response.data);
-            alert("Offer added successfully!");
+            alert(`Offer added successfully! Price: ${response.data.offerPrice}`);
             setDestinationId("");
             setOfferDetails("");
-            setOfferPrice("");
         } catch (err) {
             console.error("Error adding offer:", err);
             alert("Error adding offer. Please try again.");
@@ -53,7 +60,7 @@ const AddOffer = () => {
 
     return (
         <div>
-            <h2>Add Offer</h2>
+            <h2 className="label">Add Offer</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form">
                     <select
@@ -75,14 +82,6 @@ const AddOffer = () => {
                         placeholder="Offer Details"
                         value={offerDetails}
                         onChange={(e) => setOfferDetails(e.target.value)}
-                        required
-                    />
-                    <input
-                        type="number"
-                        step="0.01"
-                        placeholder="Offer Price"
-                        value={offerPrice}
-                        onChange={(e) => setOfferPrice(e.target.value)}
                         required
                     />
                 </div>

@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import './Offers.css'
+import { useUser } from "../UserProvider/UserProvider";
 
 
 const Offers = () => {
     const [offers, setOffers] = useState([]);
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+        }, [user, navigate]);
 
     useEffect(() => {
         const fetchOffers = async () => {
@@ -45,7 +55,7 @@ const Offers = () => {
     return (
         <div className="OffersList">
             <div>
-                <Link to="/offers/add"><h3>Add Offer</h3></Link>
+                <Link to="/offers/add"><h3 className="addOffer">Add Offer</h3></Link>
             </div>
             <h2>Offers List</h2>
             {

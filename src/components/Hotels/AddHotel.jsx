@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './hotel.css';
+import { useUser } from "../UserProvider/UserProvider";
 
 const AddHotel = () => {
     const [offers, setOffers] = useState([]);
@@ -11,6 +13,15 @@ const AddHotel = () => {
     const [offerId, setOfferId] = useState(null);
     const [image, setImage] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const { user } = useUser();
+    const navigate = useNavigate();
+  
+  
+    useEffect(() => {
+        if (!user) {
+          navigate('/login');
+        }
+      }, [user, navigate]);
 
     useEffect(() => {
         const fetchOffers = async () => {
@@ -18,7 +29,13 @@ const AddHotel = () => {
                 const result = await axios.get("http://localhost:8080/admin/offers", {
                     withCredentials: true,
                 });
-                setOffers(result.data);
+                const availableOffers = result.data.filter(
+                    (offer) => !offer.hotelId // Filter offers without flightId
+                  );
+                  setOffers(availableOffers);
+                  if (availableOffers.length > 0) {
+                    setOfferId(availableOffers[0].id); // Pre-select the first available offer
+                  }
             } catch (error) {
                 console.error("Error fetching offers:", error);
             }
@@ -42,37 +59,51 @@ const AddHotel = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
+        // Trim the location to remove any whitespace
+        const trimmedLocation = location.trim();
+        
+        // Additional validation
+        if (!trimmedLocation) {
+            alert("Location cannot be empty");
+            return;
+        }
+    
         try {
             const base64Image = previewUrl;
             
             const hotel = { 
-                name, 
-                location, 
-                stars, 
-                pricePerNight, 
-                offer: { id: offerId },
+                name: name.trim(), 
+                location: trimmedLocation,  // Use trimmed location
+                stars: parseInt(stars), 
+                pricePerNight: parseFloat(pricePerNight), 
+                offer: { id: parseInt(offerId) },
                 imageUrl: base64Image 
             };
-
-            await axios.post("http://localhost:8080/api/hotels", hotel, {
+    
+            console.log("Sending hotel data:", hotel); // Debug log
+    
+            const response = await axios.post("http://localhost:8080/api/hotels", hotel, {
                 withCredentials: true,
             });
-            alert("Hotel added successfully!");
-            setName("");
-            setLocation("");
-            setStars("");
-            setpricePerNight("");
-            setImage(null);
-            setPreviewUrl(null);
+            
+            if (response.data) {
+                alert("Hotel added successfully!");
+                // Reset form
+                setName("");
+                setLocation("");
+                setStars("");
+                setpricePerNight("");
+                setImage(null);
+                setPreviewUrl(null);
+            }
         } catch (err) {
-            console.error("Error adding hotel:", err);
-            alert("Error adding hotel.");
+            console.error("Error adding hotel:", err.response?.data || err.message);
+            alert("Error adding hotel: " + (err.response?.data || err.message));
         }
     };
-
     return (
         <div>
-            <h2>Add Hotel</h2>
+            <h2 className="label">Add Hotel</h2>
             <form className="AddForm" onSubmit={handleSubmit}>
                 <input
                     type="text"

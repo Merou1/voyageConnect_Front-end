@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams,useNavigate } from "react-router-dom";
 import axios from "axios";
-import './oneHotelClient.css'; // Ensure this CSS file is imported
+import './oneHotelClient.css'; 
+import { useUser } from "../UserProvider/UserProvider";
 
 const OneHotel = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+      if (!user) {
+        navigate('/login');
+      }
+    }, [user, navigate]);
 
   useEffect(() => {
     const fetchHotel = async () => {
