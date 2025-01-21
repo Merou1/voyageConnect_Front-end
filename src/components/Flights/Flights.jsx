@@ -62,7 +62,7 @@ const Flights = () => {
     const handleFlightDelete = async (id) => {
         try {
             const confirmation = window.confirm("Are you sure you want to delete this flight?");
-            if (!confirmation) return; 
+            if (!confirmation) return;
     
             const response = await axios.delete(`http://localhost:8080/api/flights/${id}`, {
                 withCredentials: true,
@@ -74,7 +74,12 @@ const Flights = () => {
             }
         } catch (err) {
             console.error("Error while deleting the flight:", err);
-            alert("Error while deleting the flight.");
+            if (err.response && err.response.status === 400) {
+                // Display the error message from the backend
+                alert(err.response.data);
+            } else {
+                alert("Error while deleting the flight.");
+            }
         }
     };
     

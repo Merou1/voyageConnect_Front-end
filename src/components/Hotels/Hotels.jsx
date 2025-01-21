@@ -60,15 +60,23 @@ const Hotels = () => {
         try {
             const confirmation = window.confirm("Are you sure you want to delete this hotel?");
             if (!confirmation) return;
-
-            await axios.delete(`http://localhost:8080/api/hotels/${id}`, {
+    
+            const response = await axios.delete(`http://localhost:8080/api/hotels/${id}`, {
                 withCredentials: true,
             });
-            setHotels(hotels.filter(hotel => hotel.id !== id));
-            alert("Hotel deleted successfully!");
+    
+            if (response.status === 200) {
+                setHotels(hotels.filter(hotel => hotel.id !== id));
+                alert("Hotel deleted successfully!");
+            }
         } catch (err) {
-            console.error("Error deleting hotel:", err);    
-            alert("Error deleting hotel.");
+            console.error("Error deleting hotel:", err);
+            if (err.response && err.response.status === 400) {
+                // Display the error message from the backend
+                alert(err.response.data);
+            } else {
+                alert("Error deleting hotel.");
+            }
         }
     };
 
